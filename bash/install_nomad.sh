@@ -44,11 +44,16 @@ sudo chmod 640 /etc/nomad.d/client.hcl
 cat nomad_files/client.hcl > /etc/nomad.d/client.hcl
 sudo chown --recursive nomad:nomad /etc/nomad.d
 
-echo "Starting nomad service..."
-systemctl enable nomad
-systemctl start nomad
-systemctl status nomad
+echo "installing docker..."
+apt install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+apt update
+apt install -y docker-ce
+systemctl status docker
 
+
+echo "Linking with docker..."
 #Assume that docker already installed and the user exists
 #sudo groupadd docker
 
@@ -57,3 +62,11 @@ usermod -aG docker $USER
 
 #Add nomad to docker group
 usermod -aG docker $USER
+
+echo "Starting nomad service..."
+systemctl enable nomad
+systemctl start nomad
+systemctl status nomad
+
+
+
