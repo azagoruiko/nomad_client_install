@@ -17,6 +17,7 @@ curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION
 curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS.sig
 
 echo "Installing nomad..."
+apt-get install -y unzip
 unzip nomad_${NOMAD_VERSION}_linux_amd64.zip
 chown root:root nomad
 mv nomad /usr/local/bin/
