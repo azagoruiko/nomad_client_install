@@ -62,7 +62,7 @@ echo "Linking with docker..."
 usermod -aG docker $USER
 
 #Add nomad to docker group
-usermod -aG docker $USER
+usermod -aG docker nomad
 
 echo "Starting nomad service..."
 systemctl enable nomad
