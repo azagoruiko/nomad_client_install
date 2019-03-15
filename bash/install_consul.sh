@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ -e $1 ]
+then
+    echo "parameters are like 192.168.0.10 -server"
+    exit 1
+fi
+
 echo "Downloading Consul..."
 CONSUL_VERSION="1.4.3"
 curl --silent --remote-name https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
@@ -22,17 +28,17 @@ mkdir --parents /opt/consul
 chown --recursive consul:consul /opt/consul
 
 echo "Configuting systemd..."
-cat consul_files/consul.service > /etc/systemd/system/consul.service
+cat consul_files/consul.service | sed "s/{server}/${2}/g;s/{ip}/${1}/g"> /etc/systemd/system/consul.service
 
 echo "Configuring Consul..."
 mkdir --parents /etc/consul.d
-cat consul_files/consul.hcl > /etc/consul.d/consul.hcl
+cat consul_files/consul.hcl  | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/consul.d/consul.hcl
 chown --recursive consul:consul /etc/consul.d
 chmod 640 /etc/consul.d/consul.hcl
 
 if [ "$1" = "-server" ]
 then
-    cat consul_files/server.hcl > /etc/consul.d/server.hcl
+    cat consul_files/server.hcl  | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/consul.d/server.hcl
     chown --recursive consul:consul /etc/consul.d
     chmod 640 /etc/consul.d/server.hcl
 fi
