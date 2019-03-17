@@ -1,14 +1,6 @@
 #!/usr/bin/bash
 
-echo "Installing NFS client..."
-apt-get install -y nfs-common
-
-echo "Creating shared folder..."
-mkdir /var/nfs
-chmod 777 /var/nfs
-
-echo "mounting nfs share..."
-mount 192.168.0.10:/var/nfs_share/ /var/nfs
+SERVER_IP="${1}"
 
 echo "Downloading nomad..."
 NOMAD_VERSION="0.8.4"

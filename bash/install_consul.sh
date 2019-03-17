@@ -51,4 +51,5 @@ fi
 echo "Starting Consul..."
 systemctl enable consul
 systemctl start consul
+systemctl restart consul
 systemctl status consul
