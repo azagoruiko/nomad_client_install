@@ -4,7 +4,7 @@ SERVER_IP="${1}"
 if [[ -e "$SERVER_IP" ]]
 then
     echo "Please set server address"
-end
+fi
 
 echo "Installing NFS client..."
 apt-get install -y nfs-common
