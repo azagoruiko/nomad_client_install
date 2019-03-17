@@ -28,7 +28,12 @@ mkdir --parents /opt/consul
 chown --recursive consul:consul /opt/consul
 
 echo "Configuting systemd..."
-cat consul_files/consul.service | sed "s/{server}/${2}/g;s/{ip}/${1}/g"> /etc/systemd/system/consul.service
+SERVER_ARGS=""
+if [[ "$1" = "-server" ]]
+then
+    SERVER_ARGS=" -server -client ${1} -bind ${1} "
+fi
+cat consul_files/consul.service | sed "s/{server}/${SERVER_ARGS}/g"> /etc/systemd/system/consul.service
 
 echo "Configuring Consul..."
 mkdir --parents /etc/consul.d
@@ -36,7 +41,7 @@ cat consul_files/consul.hcl  | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/cons
 chown --recursive consul:consul /etc/consul.d
 chmod 640 /etc/consul.d/consul.hcl
 
-if [ "$1" = "-server" ]
+if [[ "$1" = "-server" ]]
 then
     cat consul_files/server.hcl  | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/consul.d/server.hcl
     chown --recursive consul:consul /etc/consul.d
