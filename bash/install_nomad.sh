@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-SERVER_IP="${1}"
+SERVER_IP="192.168.0.10"
+CLIENT_IP=${1}
 
 echo "Downloading nomad..."
 NOMAD_VERSION="0.8.4"
@@ -24,17 +25,17 @@ mkdir --parents /opt/nomad
 chown --recursive nomad:nomad /opt/nomad
 
 echo "Setting up nomad as a service..."
-cat nomad_files/nomad.service | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/systemd/system/nomad.service
+cat nomad_files/nomad.service | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/systemd/system/nomad.service
 
 echo "Configuring nomad as client..."
 mkdir --parents /etc/nomad.d
 touch /etc/nomad.d/nomad.hcl
 chmod 640 /etc/nomad.d/nomad.hcl
-cat nomad_files/nomad.hcl | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/nomad.d/nomad.hcl
+cat nomad_files/nomad.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/nomad.hcl
 
 echo "Enabling client..."
 sudo chmod 640 /etc/nomad.d/client.hcl
-cat nomad_files/client.hcl | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/nomad.d/client.hcl
+cat nomad_files/client.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/client.hcl
 sudo chown --recursive nomad:nomad /etc/nomad.d
 
 echo "installing docker..."
