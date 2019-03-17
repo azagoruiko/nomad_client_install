@@ -31,7 +31,7 @@ echo "Configuting systemd..."
 SERVER_ARGS=""
 if [[ "$1" = "-server" ]]
 then
-    SERVER_ARGS=" -server -client ${1} -bind ${1} "
+    SERVER_ARGS=" -server "
 fi
 cat consul_files/consul.service | sed "s/{server}/${SERVER_ARGS}/g"> /etc/systemd/system/consul.service
 
