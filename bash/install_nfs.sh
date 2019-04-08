@@ -26,3 +26,5 @@ echo mount -a > /etc/network/if-up.d/fstab
 sudo chmod +x /etc/network/if-up.d/fstab
 
 mount -a
+
+#change 0-1
