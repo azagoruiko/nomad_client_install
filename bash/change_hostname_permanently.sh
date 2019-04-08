@@ -7,3 +7,5 @@ hostnamectl set-hostname $1
 
 rm -r /opt/nomad/*
 rm -r /opt/consul/*
+
+#change 0
