@@ -2,7 +2,7 @@
 
 if [ -e $1 ]
 then
-    echo "parameters are like 192.168.0.10 -server"
+    echo "parameters are like 192.168.0.21 -server"
     exit 1
 fi
 
