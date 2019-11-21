@@ -1,0 +1,42 @@
+[
+	{
+		"key": "expenses/object/storage/fs.s3a.access.key",
+		"flags": 0,
+		"value": "YWRtaW4="
+	},
+	{
+		"key": "expenses/object/storage/fs.s3a.endpoint",
+		"flags": 0,
+		"value": "aHR0cDovLzE5Mi4xNjguMC4yMTo5MDAw"
+	},
+	{
+		"key": "expenses/object/storage/fs.s3a.secret.key",
+		"flags": 0,
+		"value": "cGFzc3dvcmQ="
+	},
+	{
+		"key": "expenses/service/matcher/base_url",
+		"flags": 0,
+		"value": "aHR0cDovLzE5Mi4xNjguMC4xMDE6ODA4MA=="
+	},
+	{
+		"key": "jdbc.driver",
+		"flags": 0,
+		"value": "Y29tLm15c3FsLmpkYmMuRHJpdmVy"
+	},
+	{
+		"key": "jdbc.password",
+		"flags": 0,
+		"value": "emFzYWRh"
+	},
+	{
+		"key": "jdbc.url",
+		"flags": 0,
+		"value": "amRiYzpteXNxbDovLzE5Mi4xNjguMC4xMDozMzA2L2V4cGVuc2Vz"
+	},
+	{
+		"key": "jdbc.user",
+		"flags": 0,
+		"value": ""
+	}
+]
