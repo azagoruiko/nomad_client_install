@@ -52,7 +52,7 @@ systemctl status docker
 
 echo "Linking with docker..."
 #Assume that docker already installed and the user exists
-#sudo groupadd docker
+groupadd docker
 
 #Add myself to docker group
 usermod -aG docker $USER

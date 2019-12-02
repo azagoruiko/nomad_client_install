@@ -17,7 +17,7 @@
 	{
 		"key": "expenses/service/matcher/base_url",
 		"flags": 0,
-		"value": "aHR0cDovLzE5Mi4xNjguMC4xMDE6ODA4MA=="
+		"value": "aHR0cDovLzE5Mi4xNjguMC4yMTo5OTk5L21hdGNoZXI="
 	},
 	{
 		"key": "jdbc.driver",
@@ -32,11 +32,36 @@
 	{
 		"key": "jdbc.url",
 		"flags": 0,
-		"value": "amRiYzpteXNxbDovLzE5Mi4xNjguMC4xMDozMzA2L2V4cGVuc2Vz"
+		"value": "amRiYzpteXNxbDovLzE5Mi4xNjguMC4yMTozMzA2L2V4cGVuc2Vz"
 	},
 	{
 		"key": "jdbc.user",
 		"flags": 0,
-		"value": ""
+		"value": "c3lzb3A="
+	},
+	{
+		"key": "postgres.jdbc.driver",
+		"flags": 0,
+		"value": "b3JnLnBvc3RncmVzcWwuRHJpdmVy"
+	},
+	{
+		"key": "postgres.jdbc.password",
+		"flags": 0,
+		"value": "emFzYWRh"
+	},
+	{
+		"key": "postgres.jdbc.url",
+		"flags": 0,
+		"value": "amRiYzpwb3N0Z3Jlc3FsOi8vMTkyLjE2OC4wLjIxOjU0MzIvcG9zdGdyZXM="
+	},
+	{
+		"key": "postgres.jdbc.user",
+		"flags": 0,
+		"value": "cG9zdGdyZXM="
+	},
+	{
+		"key": "redis/host",
+		"flags": 0,
+		"value": "MTkyLjE2OC4wLjIx"
 	}
 ]
