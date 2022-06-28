@@ -39,13 +39,13 @@ then
     echo "Enabling server..."
     sudo chmod 640 /etc/nomad.d/server.hcl
     cat nomad_files/server.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/server.hcl
-    sudo chown --recursive nomad:nomad /etc/server.d
+    sudo chown --recursive nomad:nomad /etc/nomad.d
 fi
 
 echo "Enabling client..."
 sudo chmod 640 /etc/nomad.d/client.hcl
 cat nomad_files/client.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/client.hcl
-sudo chown --recursive nomad:nomad /etc/client.d
+sudo chown --recursive nomad:nomad /etc/nomad.d
 
 echo "installing docker..."
 apt install -y apt-transport-https ca-certificates curl software-properties-common
