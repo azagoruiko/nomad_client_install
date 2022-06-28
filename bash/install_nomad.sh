@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-SERVER_IP="192.168.0.21"
+SERVER_IP="10.8.0.1"
 CLIENT_IP=${1}
 
 echo "Downloading nomad..."

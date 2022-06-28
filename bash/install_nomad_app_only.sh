@@ -21,4 +21,4 @@ useradd --system --home /etc/nomad.d --shell /bin/false nomad
 mkdir --parents /opt/nomad
 chown --recursive nomad:nomad /opt/nomad
 
-echo "export NOMAD_ADDR=http://192.168.0.21:4646" >> ~/.bash_profile
+echo "export NOMAD_ADDR=http://10.8.0.1:4646" >> ~/.bash_profile
