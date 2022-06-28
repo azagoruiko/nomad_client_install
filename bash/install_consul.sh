@@ -29,7 +29,7 @@ chown --recursive consul:consul /opt/consul
 
 echo "Configuting systemd..."
 SERVER_ARGS=""
-if [[ "$1" = "-server" ]]
+if [[ "$2" = "-server" ]]
 then
     SERVER_ARGS=" -server "
 fi
