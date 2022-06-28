@@ -4,7 +4,7 @@ SERVER_IP="10.8.0.1"
 CLIENT_IP=${1}
 
 echo "Downloading nomad..."
-NOMAD_VERSION="0.8.4"
+NOMAD_VERSION="1.1"
 curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip
 curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS
 curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS.sig
@@ -33,10 +33,19 @@ touch /etc/nomad.d/nomad.hcl
 chmod 640 /etc/nomad.d/nomad.hcl
 cat nomad_files/nomad.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/nomad.hcl
 
+
+if [[ "$3" = "-server" ]]
+then
+    echo "Enabling server..."
+    sudo chmod 640 /etc/nomad.d/server.hcl
+    cat nomad_files/server.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/server.hcl
+    sudo chown --recursive nomad:nomad /etc/server.d
+fi
+
 echo "Enabling client..."
 sudo chmod 640 /etc/nomad.d/client.hcl
 cat nomad_files/client.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/client.hcl
-sudo chown --recursive nomad:nomad /etc/nomad.d
+sudo chown --recursive nomad:nomad /etc/client.d
 
 echo "installing docker..."
 apt install -y apt-transport-https ca-certificates curl software-properties-common
