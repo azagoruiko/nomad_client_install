@@ -7,10 +7,11 @@ client {
     docker.privileged.enabled = "true"
     docker.volumes.enabled = "true"
   }
-  advertise {
-    # Defaults to the first private IP address.
-    http = "{{ GetInterfaceIP \"tun0\" }}"
-    rpc  = "{{ GetInterfaceIP \"tun0\" }}"
-    serf = "{{ GetInterfaceIP \"tun0\" }}:5648" # non-default ports may be specified
-  }
 }
+advertise {
+  # Defaults to the first private IP address.
+  http = "{{ GetInterfaceIP \"tun0\" }}"
+  rpc  = "{{ GetInterfaceIP \"tun0\" }}"
+  serf = "{{ GetInterfaceIP \"tun0\" }}:5648" # non-default ports may be specified
+}
+
