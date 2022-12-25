@@ -29,7 +29,7 @@ chown --recursive consul:consul /opt/consul
 
 echo "Configuting systemd..."
 SERVER_ARGS=""
-if [[ "$1" = "-server" ]]
+if [[ "$2" = "-server" ]]
 then
     SERVER_ARGS=" -server "
 fi
@@ -41,7 +41,7 @@ cat consul_files/consul.hcl  | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/cons
 chown --recursive consul:consul /etc/consul.d
 chmod 640 /etc/consul.d/consul.hcl
 
-if [[ "$1" = "-server" ]]
+if [[ "$2" = "-server" ]]
 then
     cat consul_files/server.hcl  | sed "s/{server}/${2}/g;s/{ip}/${1}/g" > /etc/consul.d/server.hcl
     chown --recursive consul:consul /etc/consul.d
