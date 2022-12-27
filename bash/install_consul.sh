@@ -48,8 +48,13 @@ then
     chmod 640 /etc/consul.d/server.hcl
 fi
 
-echo "Starting Consul..."
-systemctl enable consul
-systemctl start consul
-systemctl restart consul
-systemctl status consul
+if [[ "$2" = "--no-service" ]]
+then
+  echo "Skipping nomad as a service..."
+else
+  echo "Starting Consul..."
+  systemctl enable consul
+  systemctl start consul
+  systemctl restart consul
+  systemctl status consul
+fi

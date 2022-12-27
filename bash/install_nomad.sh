@@ -2,6 +2,7 @@
 
 SERVER_IP="10.8.0.1"
 CLIENT_IP=${1}
+SKIP_SERVICES=${2}
 
 echo "Downloading nomad..."
 NOMAD_VERSION="1.1.0"
@@ -25,26 +26,26 @@ mkdir --parents /opt/nomad
 chown --recursive nomad:nomad /opt/nomad
 
 echo "Setting up nomad as a service..."
-cat nomad_files/nomad.service | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/systemd/system/nomad.service
+cat nomad_files/nomad.service | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/g" > /etc/systemd/system/nomad.service
 
 echo "Configuring nomad as client..."
 mkdir --parents /etc/nomad.d
 touch /etc/nomad.d/nomad.hcl
 chmod 640 /etc/nomad.d/nomad.hcl
-cat nomad_files/nomad.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/nomad.hcl
+cat nomad_files/nomad.hcl | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/nomad.hcl
 
 
 if [[ "$3" = "-server" ]]
 then
     echo "Enabling server..."
     sudo chmod 640 /etc/nomad.d/server.hcl
-    cat nomad_files/server.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/server.hcl
+    cat nomad_files/server.hcl | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/server.hcl
     sudo chown --recursive nomad:nomad /etc/nomad.d
 fi
 
 echo "Enabling client..."
 sudo chmod 640 /etc/nomad.d/client.hcl
-cat nomad_files/client.hcl | sed "s/{server}/${2}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/client.hcl
+cat nomad_files/client.hcl | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/client.hcl
 sudo chown --recursive nomad:nomad /etc/nomad.d
 
 echo "installing docker..."
@@ -69,10 +70,15 @@ usermod -aG docker $USER
 #Add nomad to docker group
 usermod -aG docker nomad
 
-echo "Starting nomad service..."
-systemctl enable nomad
-systemctl start nomad
-systemctl status nomad
+if [[ "$SKIP_SERVICES" = "--no-service" ]]
+then
+  echo "Skipping nomad as a service..."
+else
+  echo "Starting nomad service..."
+  systemctl enable nomad
+  systemctl start nomad
+  systemctl status nomad
+fi
 
 
 
