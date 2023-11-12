@@ -69,11 +69,16 @@ cat nomad_files/client.hcl | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/
 sudo chown --recursive nomad:nomad /etc/nomad.d
 
 echo "installing docker..."
-apt install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-add-apt-repository "deb [arch=${ARCH}] https://download.docker.com/linux/ubuntu bionic stable"
-apt update
-apt install -y docker-ce
+if [[ $ARCH == amd* ]]
+then
+  apt install -y apt-transport-https ca-certificates curl software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  add-apt-repository "deb [arch=${ARCH}] https://download.docker.com/linux/ubuntu bionic stable"
+  apt update
+  apt install -y docker-ce
+else
+  apt install -y docker
+fi
 
 cp nomad_files/docker-registry.json /etc/docker/daemon.json
 
