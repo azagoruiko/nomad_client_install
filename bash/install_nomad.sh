@@ -39,7 +39,7 @@ nomad --version
 
 nomad -autocomplete-install
 complete -C /usr/local/bin/nomad nomad
-exit 1
+
 echo "Creating nomad user..."
 useradd --system --home /etc/nomad.d --shell /bin/false nomad
 mkdir --parents /opt/nomad
