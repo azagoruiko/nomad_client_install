@@ -4,9 +4,29 @@ SERVER_IP="10.8.0.1"
 CLIENT_IP=${1}
 SKIP_SERVICES=${2}
 
+echo "Getting CPU arch"
+ARCH=$(uname -m)
+echo $ARCH
+
+if [[ $ARCH == arm* ]]
+then
+  echo "Arm!"
+  if [[ $ARCH == "arm64" ]]
+  then
+    ARCH="arm64"
+  else
+    ARCH="arm"
+  fi
+else
+  echo "AMD!"
+  ARCH="amd64"
+fi
+echo $ARCH
+
+
 echo "Downloading nomad..."
 NOMAD_VERSION="1.1.0"
-curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip
+curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_${ARCH}.zip
 curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS
 curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS.sig
 
@@ -19,7 +39,7 @@ nomad --version
 
 nomad -autocomplete-install
 complete -C /usr/local/bin/nomad nomad
-
+exit 1
 echo "Creating nomad user..."
 useradd --system --home /etc/nomad.d --shell /bin/false nomad
 mkdir --parents /opt/nomad
