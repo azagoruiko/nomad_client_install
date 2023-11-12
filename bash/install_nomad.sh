@@ -32,7 +32,7 @@ curl --silent --remote-name https://releases.hashicorp.com/nomad/${NOMAD_VERSION
 
 echo "Installing nomad..."
 apt-get install -y unzip
-unzip nomad_${NOMAD_VERSION}_linux_amd64.zip
+unzip nomad_${NOMAD_VERSION}_linux_${ARCH}.zip
 chown root:root nomad
 mv nomad /usr/local/bin/
 nomad --version
@@ -71,7 +71,7 @@ sudo chown --recursive nomad:nomad /etc/nomad.d
 echo "installing docker..."
 apt install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+add-apt-repository "deb [arch=${ARCH}] https://download.docker.com/linux/ubuntu bionic stable"
 apt update
 apt install -y docker-ce
 
