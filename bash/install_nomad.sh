@@ -1,8 +1,9 @@
 #!/usr/bin/bash
 
 SERVER_IP="10.8.0.1"
-CLIENT_IP=${1}
-SKIP_SERVICES=${2}
+NODE_CLASS=${1}
+CLIENT_IP=${2}
+SKIP_SERVICES=${3}
 
 echo "Getting CPU arch"
 ARCH=$(uname -m)
@@ -65,7 +66,7 @@ fi
 
 echo "Enabling client..."
 sudo chmod 640 /etc/nomad.d/client.hcl
-cat nomad_files/client.hcl | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/g" > /etc/nomad.d/client.hcl
+cat nomad_files/client.hcl | sed "s/{server}/${SERVER_IP}/g;s/{ip}/${CLIENT_IP}/g;s/{class}/${NODE_CLASS}/g" > /etc/nomad.d/client.hcl
 sudo chown --recursive nomad:nomad /etc/nomad.d
 
 echo "installing docker..."

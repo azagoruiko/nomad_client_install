@@ -1,7 +1,7 @@
 client {
   enabled = true
   servers = ["10.8.0.1"]
-  node_class = "storage"
+  node_class = "{class}"
   network_interface = "tun0"
   options {
     docker.privileged.enabled = "true"
