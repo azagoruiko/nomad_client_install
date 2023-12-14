@@ -6,15 +6,34 @@ then
     exit 1
 fi
 
+echo "Getting CPU arch"
+ARCH=$(uname -m)
+echo $ARCH
+
+if [[ $ARCH == arm* || $ARCH == aarch* ]]
+then
+  echo "Arm!"
+  if [[ $ARCH == "arm64" ||  $ARCH == "aarch64" ]]
+  then
+    ARCH="arm64"
+  else
+    ARCH="arm"
+  fi
+else
+  echo "AMD!"
+  ARCH="amd64"
+fi
+echo $ARCH
+
 echo "Downloading Consul..."
 CONSUL_VERSION="1.4.3"
-curl --silent --remote-name https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
+curl --silent --remote-name https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_${ARCH}.zip
 curl --silent --remote-name https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS
 curl --silent --remote-name https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS.sig
 
 echo "Installing Consul..."
 apt-get install -y unzip
-unzip consul_${CONSUL_VERSION}_linux_amd64.zip
+unzip consul_${CONSUL_VERSION}_linux_${ARCH}.zip
 chown root:root consul
 mv consul /usr/local/bin/
 consul --version
