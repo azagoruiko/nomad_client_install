@@ -9,10 +9,10 @@ echo "Getting CPU arch"
 ARCH=$(uname -m)
 echo $ARCH
 
-if [[ $ARCH == arm* ]]
+if [[ $ARCH == arm* || $ARCH == aarch* ]]
 then
   echo "Arm!"
-  if [[ $ARCH == "arm64" ]]
+  if [[ $ARCH == "arm64" ||  $ARCH == "aarch64" ]]
   then
     ARCH="arm64"
   else
