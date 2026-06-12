@@ -1,0 +1,11 @@
+# Downloaded HashiCorp release artifacts
+bash/*.zip
+bash/*_SHA256SUMS
+bash/*_SHA256SUMS.sig
+
+# Local editor metadata
+.idea/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
